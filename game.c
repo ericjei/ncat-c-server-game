@@ -16,7 +16,7 @@ void render_scene(UserProfile *user, bool use_big5) {
         safe_printf(use_big5, "【 黑暗荒野 】\n");
         safe_printf(use_big5, "四周陰暗寒冷，不時傳來野獸的低吼。南邊 (s) 可以回到大廳。\n");
         safe_printf(use_big5, "狀態 -> HP: %d | 金幣: %d\n", user->hp, user->gold);
-        safe_printf(use_big5, "指令 -> [s] 向南移動 | [search] 探索四周 | [exit] 離開遊戲\n");
+        safe_printf(use_big5, "指令 -> [s] 向南移動 | [search] 探索四周 | [bag] 開啟背包| [exit] 離開遊戲\n");
     }
     safe_printf(use_big5, "========================================\n");
     safe_printf(use_big5, "請輸入你的行動：");
@@ -46,6 +46,12 @@ void run_game_loop(UserProfile *user, bool use_big5) {
         if (strcmp(command, "exit") == 0) {
             safe_printf(use_big5, ">> 儲存進度並退出遊戲世界...\n");
             is_playing = false; // 改變狀態，準備跳出迴圈
+            continue;
+        }
+        else if (strcmp(command, "bag") == 0) {  // <--- 新增這裡
+            safe_printf(use_big5, "\n--- 背包 ---");
+            safe_printf(use_big5, "金幣: %d 枚", user->gold);
+            safe_printf(use_big5, "-----------\n");
             continue;
         }
 
