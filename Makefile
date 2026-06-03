@@ -10,7 +10,7 @@ all: $(TARGET)
 
 # 轉
 $(TARGET): main.c auth.c i18n.c
-	$(CC) $(CFLAGS) main.c auth.c i18n.c game.c -o $(TARGET)
+	$(CC) $(CFLAGS) main.c auth.c i18n.c game.c village.c -o $(TARGET)
 # ==========================================
 # 【安全清理模式】(指令：make clean)
 # 只刪除編譯出來的執行檔，絕對不會動到 users/ 資料庫！

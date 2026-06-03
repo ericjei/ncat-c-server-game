@@ -18,15 +18,25 @@ int main() {
     // ==========================================
     char choice[10];
     bool use_big5 = false;
-
-    printf("Please select your terminal encoding / 請選擇終端機編碼:\n");
-    printf("1. Windows CMD (Big5)\n");
-    printf("2. Mac / Linux / Modern Terminal (UTF-8)\n");
-    printf("Select (1/2): ");
+    while (1)
+    {
+        printf("Please select your terminal encoding / 請選擇終端機編碼:\n");
+        printf("1. Windows CMD (Big5)\n");
+        printf("2. Mac / Linux / Modern Terminal (UTF-8)\n");
+        printf("Select (1/2): ");
     
-    if (fgets(choice, sizeof(choice), stdin)) {
-        if (choice[0] == '1') {
-            use_big5 = true;
+        if (fgets(choice, sizeof(choice), stdin)) {
+            if (choice[0] == '1') {
+                use_big5 = true;
+                break;
+            }
+            else if (choice[0] == '2') {
+                use_big5 = false;
+                break;
+            }
+            else{
+                continue;
+            }
         }
     }
 
