@@ -9,10 +9,11 @@ typedef struct {
     char username[50];
     char password[50];
     int role_level;
-    // --- 新增遊戲專用欄位 ---
+    // --- 遊戲專用欄位 ---
     int hp;
     int gold;
     int map_id;
+    int luck;
 } UserProfile;
 
 void strip_newline(char *str);

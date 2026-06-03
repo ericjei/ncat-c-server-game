@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
 #include "auth.h"
@@ -72,8 +73,10 @@ void run_game_loop(UserProfile *user, bool use_big5) {
                 user->map_id = 0; // 改變位置狀態
                 safe_printf(use_big5, ">> 你匆忙往南走，回到了安全的大廳。\n");
             } else if (strcmp(command, "search") == 0) {
-                user->gold += 10; // 更新資源狀態
-                safe_printf(use_big5, ">> 你在樹叢中找到了一個破舊的錢袋，獲得了 10 枚金幣！\n");
+                int base_gold = (rand() % 11+(user->luck * 2)) + 5;
+                user->gold += base_gold; // 更新資源狀態
+                safe_printf(use_big5, ">> 你在樹叢中找到了一個破舊的錢袋，獲得了 %d 枚金幣！\n",base_gold);
+                safe_printf(use_big5, ">> 目前總金幣: %d\n",user->gold);
             } else {
                 safe_printf(use_big5, ">> 無效的指令，或者你不能在這裡這樣做。\n");
             }
