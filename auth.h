@@ -14,6 +14,8 @@ typedef struct {
     int gold;
     int map_id;
     int luck;
+    int weapon_level; 
+    int potions;
 } UserProfile;
 
 void strip_newline(char *str);

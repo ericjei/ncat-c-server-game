@@ -5,6 +5,7 @@
 #include "auth.h"
 #include "i18n.h"
 #include "village.h"
+#include "shop.h"
 
 // 定義場景描述函式 (Render 階段的一部分)
 void render_scene(UserProfile *user, bool use_big5) {
@@ -24,6 +25,9 @@ void render_scene(UserProfile *user, bool use_big5) {
         render_village(user, use_big5);
     safe_printf(use_big5, "========================================\n");
     safe_printf(use_big5, "請輸入你的行動：");
+    }
+    else if (user->map_id == 3) {
+        render_shop(user, use_big5);
     }
 }
 
@@ -90,6 +94,9 @@ void run_game_loop(UserProfile *user, bool use_big5) {
         }
         else if (user->map_id == 2) { // 村落邏輯
             update_village(user, command, use_big5);
+        }
+        else if (user->map_id == 3) {
+            update_shop(user, command, use_big5);
         }
         // --- 每次邏輯更新完畢後，你可以在這裡呼叫存檔函式 ---
         // save_user_to_file(user); 

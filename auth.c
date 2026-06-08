@@ -26,6 +26,8 @@ void register_user(UserProfile *user, const char *filename, bool use_big5) {
     user->gold = 0;       // 新手 0 元
     user->map_id = 0;     // 出生在大廳 (地圖 0)
     user->luck = (rand() % 10) + 1; //1-10運
+    user->weapon_level = 0; 
+    user->potions = 0;
 
     FILE *fp = fopen(filename, "w");
     if (fp != NULL) {
@@ -35,6 +37,8 @@ void register_user(UserProfile *user, const char *filename, bool use_big5) {
         fprintf(fp, "%d\n", user->gold);    // 寫入金幣
         fprintf(fp, "%d\n", user->map_id);  // 寫入地圖位置
         fprintf(fp, "%d\n", user->luck);//寫入運氣
+        fprintf(fp, "%d\n", user->weapon_level); 
+        fprintf(fp, "%d\n", user->potions);
         fclose(fp);
         safe_printf(use_big5, "\n>> 註冊成功！您的專屬資料檔已建立。\n");
         safe_printf(use_big5, ">> 系統正在為您自動跳轉至登入畫面...\n\n");
@@ -107,6 +111,12 @@ void login_user(UserProfile *user, FILE *fp, bool use_big5) {
 
     fgets(temp_str, sizeof(temp_str), fp);
     user->luck = atoi(temp_str);
+
+    fgets(temp_str, sizeof(temp_str), fp);
+    user->weapon_level = atoi(temp_str);
+
+    fgets(temp_str, sizeof(temp_str), fp);
+    user->potions = atoi(temp_str);
     fclose(fp); // 讀取完畢即可關閉檔案
 
     safe_printf(use_big5, ">> 歡迎回來，玩家 %s！ (權限等級: %d)\n", user->username, user->role_level);
