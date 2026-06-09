@@ -22,5 +22,6 @@ void strip_newline(char *str);
 void register_user(UserProfile *user, const char *filename, bool use_big5);
 void login_user(UserProfile *user, FILE *fp, bool use_big5);
 void change_username(UserProfile *user, bool use_big5);
+void save_user_to_file(UserProfile *user);
 
 #endif

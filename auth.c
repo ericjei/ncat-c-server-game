@@ -163,3 +163,25 @@ void login_user(UserProfile *user, FILE *fp, bool use_big5) {
         }
     }
 }
+// ==========================================
+// 儲存玩家進度實作
+// ==========================================
+void save_user_to_file(UserProfile *user) {
+    char filename[150];
+    // 組合出該玩家的存檔路徑，例如 "users/lin.txt"
+    sprintf(filename, "users/%s.txt", user->username);
+    
+    // 使用 "w" 模式開啟檔案，這會直接覆蓋掉舊的檔案內容
+    FILE *fp = fopen(filename, "w");
+    if (fp != NULL) {
+        fprintf(fp, "%s\n", user->password);
+        fprintf(fp, "%d\n", user->role_level);
+        fprintf(fp, "%d\n", user->hp);
+        fprintf(fp, "%d\n", user->gold);
+        fprintf(fp, "%d\n", user->map_id);
+        fprintf(fp, "%d\n", user->luck);
+        fprintf(fp, "%d\n", user->weapon_level); 
+        fprintf(fp, "%d\n", user->potions);
+        fclose(fp);
+    }
+}

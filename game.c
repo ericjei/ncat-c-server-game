@@ -7,6 +7,7 @@
 #include "village.h"
 #include "shop.h"
 #include "battle.h"
+#include "leaderboard.h"
 
 // 定義場景描述函式 (Render 階段的一部分)
 void render_scene(UserProfile *user, bool use_big5) {
@@ -110,7 +111,11 @@ void run_game_loop(UserProfile *user, bool use_big5) {
         else if (user->map_id == 4) {
             update_battle(user, command, use_big5);
         }
+        else if (user->map_id == 5) {
+            render_leaderboard(use_big5);
+            if (strcmp(command, "b") == 0) user->map_id = 2;
+        }
         // --- 每次邏輯更新完畢後，你可以在這裡呼叫存檔函式 ---
-        // save_user_to_file(user); 
+        save_user_to_file(user); 
     }
 }

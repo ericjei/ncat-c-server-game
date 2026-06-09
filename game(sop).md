@@ -14,6 +14,7 @@ socat TCP-LISTEN:8000,reuseaddr,fork EXEC:"./ctf_server"
 b視窗
 外接
 ssh -p 443 -R0:localhost:8000 tcp@a.pinggy.io
-*ssh -p 443 -R0:localhost:8000 a.pinggy.io
+ssh -p 443 -R0:localhost:8000 a.pinggy.io
+*ngrok http 8000
 複製網址
 --------------------------------------------------------------------------------------------
