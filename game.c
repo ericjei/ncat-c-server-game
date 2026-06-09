@@ -34,6 +34,9 @@ void render_scene(UserProfile *user, bool use_big5) {
     else if (user->map_id == 4) {
         render_battle(user, use_big5);
     }
+    else if (user->map_id == 5) {
+        render_leaderboard(use_big5);
+    }
 }
 
 // 遊戲主循環
@@ -112,9 +115,14 @@ void run_game_loop(UserProfile *user, bool use_big5) {
             update_battle(user, command, use_big5);
         }
         else if (user->map_id == 5) {
-            render_leaderboard(use_big5);
-            if (strcmp(command, "b") == 0) user->map_id = 2;
+            if (strcmp(command, "b") == 0) {
+                user->map_id = 2; // 回到村莊 (map_id = 2)
+                safe_printf(use_big5, ">> 你離開了排行榜，回到了村莊。\n");
+            } else {
+                safe_printf(use_big5, ">> 這裡是排行榜頁面，請輸入 [b] 回到村莊。\n");
+            }
         }
+        
         // --- 每次邏輯更新完畢後，你可以在這裡呼叫存檔函式 ---
         save_user_to_file(user); 
     }
