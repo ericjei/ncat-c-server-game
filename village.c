@@ -22,6 +22,7 @@ void update_village(UserProfile *user, const char *command, bool use_big5) {
     else if (strcmp(command, "shop") == 0) { // 【新增】：進入商店
         user->map_id = 3; // 切換狀態至商店
         safe_printf(use_big5, ">> 你推開木門，走進了充滿魔法氣息的道具屋。\n");
+        
     }
     else if (strcmp(command, "pray") == 0) {
         if (user->gold >= 10) {

@@ -6,6 +6,7 @@
 #include "i18n.h"
 #include "village.h"
 #include "shop.h"
+#include "battle.h"
 
 // 定義場景描述函式 (Render 階段的一部分)
 void render_scene(UserProfile *user, bool use_big5) {
@@ -19,7 +20,7 @@ void render_scene(UserProfile *user, bool use_big5) {
         safe_printf(use_big5, "【 黑暗荒野 】\n");
         safe_printf(use_big5, "四周陰暗寒冷，不時傳來野獸的低吼。南邊 (s) 可以回到大廳。\n");
         safe_printf(use_big5, "狀態 -> HP: %d | 金幣: %d\n", user->hp, user->gold);
-        safe_printf(use_big5, "指令 -> [s] 向南移動 | [search] 探索四周 | [bag] 開啟背包| [exit] 離開遊戲\n");
+        safe_printf(use_big5, "指令 -> [s] 向南移動 | [search] 探索四周  | [battle] 戰鬥爽| [bag] 開啟背包| [exit] 離開遊戲\n");
     }else if (user->map_id == 2) {
         // 呼叫外部 village.c 提供的副程式
         render_village(user, use_big5);
@@ -28,6 +29,9 @@ void render_scene(UserProfile *user, bool use_big5) {
     }
     else if (user->map_id == 3) {
         render_shop(user, use_big5);
+    }
+    else if (user->map_id == 4) {
+        render_battle(user, use_big5);
     }
 }
 
@@ -88,7 +92,12 @@ void run_game_loop(UserProfile *user, bool use_big5) {
                 user->gold += base_gold; // 更新資源狀態
                 safe_printf(use_big5, ">> 你在樹叢中找到了一個破舊的錢袋，獲得了 %d 枚金幣！\n",base_gold);
                 safe_printf(use_big5, ">> 目前總金幣: %d\n",user->gold);
-            } else {
+            } 
+            else if(strcmp(command, "battle") == 0){
+                user->map_id = 4;
+                safe_printf(use_big5, ">> 前往戰鬥\n");
+            }
+            else {
                 safe_printf(use_big5, ">> 無效的指令，或者你不能在這裡這樣做。\n");
             }
         }
@@ -97,6 +106,9 @@ void run_game_loop(UserProfile *user, bool use_big5) {
         }
         else if (user->map_id == 3) {
             update_shop(user, command, use_big5);
+        }
+        else if (user->map_id == 4) {
+            update_battle(user, command, use_big5);
         }
         // --- 每次邏輯更新完畢後，你可以在這裡呼叫存檔函式 ---
         // save_user_to_file(user); 
